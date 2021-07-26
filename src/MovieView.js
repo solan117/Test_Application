@@ -11,8 +11,8 @@ class MovieView extends Component {
 
   componentDidMount() {
     fetch("http://localhost:5000/movieList/"+this.props.match.params.id, { mode: "cors" })
-            .then(response => console.log(response.text()))
-            .then(data => {this.setState({movies: "[" +data})})
+            .then(response => console.log(response.json()))
+            .then(data => {this.setState({movies: [data]})})
             .catch((err) => { console.log(err)});    
 }
   
@@ -34,7 +34,7 @@ class MovieView extends Component {
         // });
         console.log(movies);
         const movieView = movies.map(movie =>{
-          return <tr key={movie.rentalId}>
+          return <tr key={movie._id}>
             <td>{movie._id}</td>
             <td>{movie.Category}</td>
             <td>{movie.Description}</td>
