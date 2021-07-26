@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Table  } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 
@@ -35,7 +36,7 @@ class CustomerView extends Component {
         });
         const movieView = Rentals.map(movie =>{
           return <tr key={movie.rentalId}>
-            <td>{movie["Film Title"]}</td>
+            <td><Link to={`/movie/${movie.filmId}`} >{movie["Film Title"]}</Link></td>
             <td>{movie.filmId}</td>
             <td>{movie.Payments[0].Amount}</td>
             <td>{movie.Payments[0]["Payment Date"]}</td>

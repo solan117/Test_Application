@@ -1,49 +1,45 @@
 import React, { Component } from 'react';
-import { Container, Table  } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Button, ButtonGroup, Container, Table } from "reactstrap";
 import AppNavbar from './AppNavbar';
 
 class MovieView extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { movies: []};
+    this.state = { movie: {}, customers:[], Actors:[]};
     }
 
   componentDidMount() {
     fetch("http://localhost:5000/movieList/"+this.props.match.params.id, { mode: "cors" })
-            .then(response => console.log(response.json()))
-            .then(data => {this.setState({movies: [data]})})
+            .then(response => response.json())
+            .then(data => {this.setState({movie: data.movies, customers: data.customers, Actors: data.movies.Actors })})
             .catch((err) => { console.log(err)});    
 }
   
   render() {
-    const {movies} = this.state;
+    const {movie} = this.state;
+    const {customers} = this.state;
+    const {Actors} = this.state;
+    console.log(this.state)
+    const customerList = customers.map(customer => {
+        return <tr key={customer._id}>
+          <td>{customer["First Name"]}</td>
+          <td>{customer["Last Name"]}</td>
+          <td>
+                <ButtonGroup>
+                <Button size="sm" color="primary" tag={Link} to={"/customer/" + customer._id}>View</Button>
+                </ButtonGroup>
+            </td>
+        </tr>
+      });
     //const {Rentals} = this.state.customers[0];
     //console.log(Rentals)
-        // const actorView = actors.map(customer => {
-        //   return <tr key={customer._id}>
-        //     <td>{customer._id}</td>
-        //     <td>{customer["First Name"]}</td>
-        //     <td>{customer["Last Name"]}</td>
-        //     <td>{customer.Address}</td>
-        //     <td>{customer.City}</td>
-        //     <td>{customer.Country}</td>
-        //     <td>{customer.Phone}</td>
-        //     <td>{customer.District}</td>
-        //   </tr>
-        // });
-        console.log(movies);
-        const movieView = movies.map(movie =>{
-          return <tr key={movie._id}>
-            <td>{movie._id}</td>
-            <td>{movie.Category}</td>
-            <td>{movie.Description}</td>
-            <td>{movie.Length}</td>
-            <td>{movie.Rating}</td>
-            <td>{movie["Rental Duration"]}</td>
-            <td>{movie["Replacement Cost"]}</td>
-            <td>{movie["Special Features"]}</td>
-            <td>{movie.Title}</td>
+        const actorList = Actors.map(actor => {
+          return <tr key={actor.actorId}>
+            <td>{actor["First name"]}</td>
+            <td>{actor["Last name"]}</td>
+            
           </tr>
         });
         return (
@@ -54,7 +50,7 @@ class MovieView extends Component {
               <Table className="mt-4">
                 <thead>
                   <tr>
-                    <th>Id</th>
+                    <th>Title</th>
                     <th>Category</th>
                     <th>Description</th>
                     <th>Length</th>
@@ -62,29 +58,47 @@ class MovieView extends Component {
                     <th>Rental Duration</th>
                     <th>Replacement Cost</th>
                     <th>Special Features</th>
-                    <th>Title</th>   
+                    
                   </tr>
+                  
                 </thead>
                 <tbody>
-                {movieView}
+                <tr key={movie._id}>
+            <td>{movie.Title}</td>
+            <td>{movie.Category}</td>
+            <td>{movie.Description}</td>
+            <td>{movie.Length}</td>
+            <td>{movie.Rating}</td>
+            <td>{movie["Rental Duration"]}</td>
+            <td>{movie["Replacement Cost"]}</td>
+            <td>{movie["Special Features"]}</td>
+            
+          </tr>
                 </tbody>
               </Table>
+              <h3>Actors of this movie</h3>
               <Table className="mt-4">
                 <thead>
                   <tr>
-                    <th>Film Title</th>
-                    <th>FlimId</th>
-                    <th>Payment Amount</th>
-                    <th>Payment Date</th>
-                    <th>Payment Id</th>
-                    <th>RentalDate</th>
-                    <th>RentalId</th>
-                    <th>ReturnDate</th>  
-                    <th>StaffId</th>   
+                    <th>First Name</th>
+                    <th>Last Name</th>   
                   </tr>
                 </thead>
                 <tbody>
-                { movieView }
+                { actorList }
+                </tbody>
+              </Table>
+
+              <h3>Customer Who rented this movie</h3>
+              <Table className="mt-4">
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>   
+                  </tr>
+                </thead>
+                <tbody>
+                { customerList }
                 </tbody>
               </Table>
             </Container>
