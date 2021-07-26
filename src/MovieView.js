@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, ButtonGroup, Container, Table } from "reactstrap";
+import { Container, Table } from "reactstrap";
 import AppNavbar from './AppNavbar';
 
 class MovieView extends Component {
@@ -21,22 +21,16 @@ class MovieView extends Component {
     const {movie} = this.state;
     const {customers} = this.state;
     const {Actors} = this.state;
-    console.log(this.state)
     const customerList = customers.map(customer => {
         return <tr key={customer._id}>
+          <td><Link to={"/customer/" + customer._id}>{customer._id}</Link></td>
           <td>{customer["First Name"]}</td>
           <td>{customer["Last Name"]}</td>
-          <td>
-                <ButtonGroup>
-                <Button size="sm" color="primary" tag={Link} to={"/customer/" + customer._id}>View</Button>
-                </ButtonGroup>
-            </td>
         </tr>
       });
-    //const {Rentals} = this.state.customers[0];
-    //console.log(Rentals)
         const actorList = Actors.map(actor => {
           return <tr key={actor.actorId}>
+            <td>{actor.actorId}</td>
             <td>{actor["First name"]}</td>
             <td>{actor["Last name"]}</td>
             
@@ -50,6 +44,7 @@ class MovieView extends Component {
               <Table className="mt-4">
                 <thead>
                   <tr>
+                    <th>Id</th>
                     <th>Title</th>
                     <th>Category</th>
                     <th>Description</th>
@@ -64,6 +59,7 @@ class MovieView extends Component {
                 </thead>
                 <tbody>
                 <tr key={movie._id}>
+            <td>{movie._id}</td>
             <td>{movie.Title}</td>
             <td>{movie.Category}</td>
             <td>{movie.Description}</td>
@@ -80,6 +76,7 @@ class MovieView extends Component {
               <Table className="mt-4">
                 <thead>
                   <tr>
+                    <th>Id</th>
                     <th>First Name</th>
                     <th>Last Name</th>   
                   </tr>
@@ -93,6 +90,7 @@ class MovieView extends Component {
               <Table className="mt-4">
                 <thead>
                   <tr>
+                    <th>Id</th>
                     <th>First Name</th>
                     <th>Last Name</th>   
                   </tr>

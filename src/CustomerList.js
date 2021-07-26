@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, ButtonGroup, Container, Table } from "reactstrap";
+import { Container, Table } from "reactstrap";
 import AppNavbar from "./AppNavbar";
 import { Link } from "react-router-dom";
 
@@ -26,7 +26,7 @@ class CustomerList extends Component {
     
         const customerList = customers.map(customer => {
           return <tr key={customer._id}>
-            <td>{customer._id}</td>
+            <td><Link to={"/customer/" + customer._id}>{customer._id}</Link></td>
             <td>{customer["First Name"]}</td>
             <td>{customer["Last Name"]}</td>
             <td>{customer.Address}</td>
@@ -34,11 +34,6 @@ class CustomerList extends Component {
             <td>{customer.Country}</td>
             <td>{customer.Phone}</td>
             <td>{customer.District}</td>
-            <td>
-                <ButtonGroup>
-                <Button size="sm" color="primary" tag={Link} to={"/customer/" + customer._id}>View</Button>
-                </ButtonGroup>
-            </td>
           </tr>
         });
     

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, ButtonGroup, Container, Table } from "reactstrap";
+import { Container, Table } from "reactstrap";
 import AppNavbar from "./AppNavbar";
 import { Link } from "react-router-dom";
 
@@ -26,15 +26,10 @@ class MovieList extends Component {
     
         const MovieList = movies.map(movie => {
           return <tr key={movie._id}>
-            <td>{movie._id}</td>
+            <td><Link to={"/movie/" + movie._id}>{movie._id}</Link></td>
             <td>{movie.Title}</td>
             <td>{movie.Category}</td>
             <td>{movie.Rating}</td>
-            <td>
-                <ButtonGroup>
-                <Button size="sm" color="primary" tag={Link} to={"/movie/" + movie._id}>View</Button>
-                </ButtonGroup>
-            </td>
           </tr>
         });
     

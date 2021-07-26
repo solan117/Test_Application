@@ -21,7 +21,7 @@ class CustomerView extends Component {
   render() {
     const {customers} = this.state;
     const {Rentals} = this.state.customers[0];
-    console.log(Rentals)
+
         const customerView = customers.map(customer => {
           return <tr key={customer._id}>
             <td>{customer._id}</td>
@@ -36,16 +36,15 @@ class CustomerView extends Component {
         });
         const movieView = Rentals.map(movie =>{
           return <tr key={movie.rentalId}>
-            <td><Link to={`/movie/${movie.filmId}`} >{movie["Film Title"]}</Link></td>
-            <td>{movie.filmId}</td>
+            <td><Link to={`/movie/${movie.filmId}`}>{movie.filmId}</Link></td>
+            <td>{movie["Film Title"]}</td>
             <td>{movie.Payments[0].Amount}</td>
             <td>{movie.Payments[0]["Payment Date"]}</td>
             <td>{movie.Payments[0]["Payment Id"]}</td>
             <td>{movie["Rental Date"]}</td>
             <td>{movie.rentalId}</td>
             <td>{movie["Return Date"]}</td>
-            <td>{movie.staffId}</td>
-            
+            <td>{movie.staffId}</td>    
           </tr>
         });
         return (
@@ -73,8 +72,8 @@ class CustomerView extends Component {
               <Table className="mt-4">
                 <thead>
                   <tr>
-                    <th>Film Title</th>
                     <th>FlimId</th>
+                    <th>Film Title</th>
                     <th>Payment Amount</th>
                     <th>Payment Date</th>
                     <th>Payment Id</th>
